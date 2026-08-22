@@ -1,0 +1,22 @@
+# Paper configuration for the cooperative gridworld experiment.
+environment:
+  grid_size: 5
+  horizon: 50
+  cooperation_stay_probability: 0.7
+
+training:
+  episodes: 20000
+  runs: 10
+  batch_size: 256
+  replay_capacity: 100000
+  moving_average_window: 100
+
+algorithm:
+  optimizer: Adam
+  actor_learning_rate: 0.0005
+  critic_learning_rate: 0.0005
+  gamma: 0.99
+  tau: 5.0
+  epsilon: 0.2
+  target_update: 0.002
+  hidden_dim: 128

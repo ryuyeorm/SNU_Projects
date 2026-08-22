@@ -1,0 +1,9 @@
+{
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/src"
+    ],
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "src"
+    }
+}
