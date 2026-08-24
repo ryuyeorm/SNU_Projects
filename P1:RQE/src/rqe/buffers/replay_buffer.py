@@ -14,6 +14,7 @@ class ReplayBuffer:
             raise ValueError("capacity must be positive")
         self.capacity = capacity
         self.buffer: list[tuple[Tensor, Tensor, Tensor, Tensor, Tensor]] = []
+        self._next_index = 0
 
 
     def add(
@@ -31,16 +32,24 @@ class ReplayBuffer:
             next_observation.detach().clone(),
             done.detach().clone(),
         )
-        self.buffer.append(transition)
-        if self.capacity is not None and len(self.buffer) > self.capacity:
-            self.buffer.pop(0)
+        if self.capacity is None or len(self.buffer) < self.capacity:
+            self.buffer.append(transition)
+        else:
+            self.buffer[self._next_index] = transition
+            self._next_index = (self._next_index + 1) % self.capacity
         
 
     def get(self) -> tuple[Tensor, Tensor, Tensor, Tensor, Tensor]:
         if not self.buffer:
             raise ValueError("Cannot get data from an empty buffer")
+        transitions = self.buffer
+        if self.capacity is not None and self._next_index:
+            transitions = (
+                self.buffer[self._next_index :]
+                + self.buffer[: self._next_index]
+            )
         observations, actions, rewards, next_observations, dones = zip(
-            *self.buffer
+            *transitions
         )
 
         return (
@@ -67,6 +76,7 @@ class ReplayBuffer:
 
     def clear(self) -> None:
         self.buffer.clear()
+        self._next_index = 0
 
     def __len__(self) -> int:
         return len(self.buffer)

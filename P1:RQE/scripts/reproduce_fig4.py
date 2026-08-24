@@ -20,6 +20,7 @@ def main() -> None:
     parser.add_argument("--runs", type=int, default=10)
     parser.add_argument("--batch-size", type=int, default=256)
     parser.add_argument("--hidden-dim", type=int, default=128)
+    parser.add_argument("--replay-capacity", type=int, default=None)
     parser.add_argument(
         "--device",
         choices=("auto", "cpu", "cuda"),
@@ -45,7 +46,13 @@ def main() -> None:
     selected_device = torch.device(
         device or ("cuda" if torch.cuda.is_available() else "cpu")
     )
+    replay_capacity = (
+        args.replay_capacity
+        if args.replay_capacity is not None
+        else args.episodes * 50
+    )
     print(f"using device: {selected_device}")
+    print(f"replay capacity: {replay_capacity}")
 
     for risk_averse, label in ((True, "risk_averse"), (False, "risk_neutral")):
         for run in range(args.runs):
@@ -63,7 +70,7 @@ def main() -> None:
                 epsilon=0.2,
                 target_update=0.002,
                 batch_size=args.batch_size,
-                replay_capacity=100_000,
+                replay_capacity=replay_capacity,
                 risk_averse=risk_averse,
                 device=selected_device,
             )
