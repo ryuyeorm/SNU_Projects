@@ -1,12 +1,14 @@
 """Deep two-agent RQE actor-critic based on Algorithm 2 of the paper."""
 
+from __future__ import annotations
+
 from copy import deepcopy
 
 import torch
 from torch import Tensor, nn
 
 from ..buffers.replay_buffer import ReplayBuffer
-from ..core.regularizers import entropy, kl_divergence
+from ..core.regularizers import entropy, kl_divergence_from_logits
 from ..models.actor import Actor
 from ..models.adversary import Adversary
 from ..models.joint_action_critic import JointActionCritic
@@ -144,8 +146,12 @@ class DeepRQEActorCritic(nn.Module):
             torch.softmax(actor(observations), dim=-1)
             for actor in self.actors
         ]
+        adversary_logits = [
+            adversary.forward_logits(observations)
+            for adversary in self.adversaries
+        ]
         adversary_probabilities = [
-            adversary(observations) for adversary in self.adversaries
+            logits.softmax(dim=-1) for logits in adversary_logits
         ]
 
         actor_losses: list[Tensor] = []
@@ -199,9 +205,9 @@ class DeepRQEActorCritic(nn.Module):
                 adversary_losses.append(
                     (
                         -adversary_value
-                        + kl_divergence(
-                            adversary_policy,
+                        + kl_divergence_from_logits(
                             opponent_policy.detach(),
+                            adversary_logits[agent],
                         )
                         / self.tau
                     ).mean()
@@ -225,8 +231,9 @@ class DeepRQEActorCritic(nn.Module):
                 torch.softmax(actor(next_observations), dim=-1)
                 for actor in self.actors
             ]
-            next_adversaries = [
-                adversary(next_observations) for adversary in self.adversaries
+            next_adversary_logits = [
+                adversary.forward_logits(next_observations)
+                for adversary in self.adversaries
             ]
             targets = [
                 self._critic_target(
@@ -235,7 +242,7 @@ class DeepRQEActorCritic(nn.Module):
                     next_observations,
                     dones,
                     next_policies,
-                    next_adversaries,
+                    next_adversary_logits,
                 )
                 for agent in range(2)
             ]
@@ -279,7 +286,7 @@ class DeepRQEActorCritic(nn.Module):
         next_observations: Tensor,
         dones: Tensor,
         policies: list[Tensor],
-        adversaries: list[Tensor],
+        adversary_logits: list[Tensor],
     ) -> Tensor:
         q_values = torch.maximum(
             self.target_critics[agent][0](next_observations),
@@ -288,7 +295,9 @@ class DeepRQEActorCritic(nn.Module):
         own_policy = policies[agent]
         opponent_policy = policies[1 - agent]
         imagined_opponent = (
-            adversaries[agent] if self.risk_averse else opponent_policy
+            adversary_logits[agent].softmax(dim=-1)
+            if self.risk_averse
+            else opponent_policy
         )
         if agent == 0:
             next_value = torch.einsum(
@@ -300,9 +309,9 @@ class DeepRQEActorCritic(nn.Module):
             )
         regularized_value = next_value - self.epsilon * entropy(own_policy)
         if self.risk_averse:
-            regularized_value = regularized_value - kl_divergence(
-                imagined_opponent,
+            regularized_value = regularized_value - kl_divergence_from_logits(
                 opponent_policy,
+                adversary_logits[agent],
             ) / self.tau
         return -rewards + self.gamma * (1.0 - dones) * regularized_value
 

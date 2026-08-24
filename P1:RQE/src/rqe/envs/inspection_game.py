@@ -5,6 +5,8 @@ Actor-Critic for MARL through Risk-aversion" (arXiv:2602.12386).
 Each call to :meth:`step` plays one complete, stateless game.
 """
 
+from __future__ import annotations
+
 from typing import Any
 
 import torch

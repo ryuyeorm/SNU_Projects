@@ -1,6 +1,10 @@
 import torch
 
-from rqe.core.regularizers import entropy, kl_divergence
+from rqe.core.regularizers import (
+    entropy,
+    kl_divergence,
+    kl_divergence_from_logits,
+)
 
 
 def test_entropy_of_uniform_distribution():
@@ -28,3 +32,19 @@ def test_regularizers_support_batches():
     ])
 
     assert entropy(probabilities).shape == (2,)
+
+
+def test_kl_from_logits_restores_tiny_reference_probability():
+    probabilities = torch.full((1, 5), 0.2)
+    reference_logits = torch.tensor(
+        [[-30.0, 0.0, 0.0, 0.0, 0.0]],
+        requires_grad=True,
+    )
+
+    kl_divergence_from_logits(probabilities, reference_logits).backward()
+
+    assert reference_logits.grad is not None
+    torch.testing.assert_close(
+        reference_logits.grad[0, 0],
+        torch.tensor(-0.2),
+    )

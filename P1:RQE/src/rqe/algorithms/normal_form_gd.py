@@ -1,5 +1,7 @@
 """Projected-gradient solvers for two-player normal-form RQE games."""
 
+from __future__ import annotations
+
 from collections.abc import Callable
 
 import torch

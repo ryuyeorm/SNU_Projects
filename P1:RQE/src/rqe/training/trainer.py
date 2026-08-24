@@ -42,12 +42,13 @@ def train_gridworld(
         while not done:
             actions = agent.act(observation)
             next_observation, rewards, done, _ = environment.step(actions)
+            # The 50-step horizon truncates the infinite-horizon process.
             agent.observe(
                 observation,
                 actions,
                 rewards,
                 next_observation,
-                torch.tensor(done),
+                torch.tensor(False),
             )
             episode_returns[episode] += rewards
             observation = next_observation

@@ -3,6 +3,7 @@
 import torch
 
 from rqe.envs.gridworld_cooperation import GridworldCooperation
+from rqe.training.trainer import train_gridworld
 
 
 def test_reset_and_regular_movement():
@@ -77,3 +78,23 @@ def test_horizon_terminates_episode():
     environment.reset()
     assert not environment.step([4, 4])[2]
     assert environment.step([4, 4])[2]
+
+
+def test_training_bootstraps_at_time_limit():
+    class RecordingAgent:
+        batch_size = 100
+
+        def __init__(self):
+            self.buffer = []
+
+        def act(self, observation):
+            return torch.tensor([4, 4])
+
+        def observe(self, observation, actions, rewards, next_observation, done):
+            self.buffer.append(done)
+
+    agent = RecordingAgent()
+    train_gridworld(agent, episodes=1)
+
+    assert len(agent.buffer) == 50
+    assert not torch.stack(agent.buffer).any()

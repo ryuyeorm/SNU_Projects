@@ -18,3 +18,17 @@ def kl_divergence(
     safe_probabilities = probabilities.clamp_min(eps)
     safe_reference = reference.clamp_min(eps)
     return (probabilities * (safe_probabilities.log() - safe_reference.log())).sum(dim=-1)
+
+
+def kl_divergence_from_logits(
+    probabilities: Tensor,
+    reference_logits: Tensor,
+    eps: float = 1e-8,
+) -> Tensor:
+    """Return KL(probabilities || softmax(reference_logits)) stably."""
+    safe_probabilities = probabilities.clamp_min(eps)
+    reference_log_probabilities = reference_logits.log_softmax(dim=-1)
+    return (
+        probabilities
+        * (safe_probabilities.log() - reference_log_probabilities)
+    ).sum(dim=-1)

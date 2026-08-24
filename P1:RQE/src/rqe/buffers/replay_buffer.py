@@ -1,4 +1,7 @@
 """Store, batch, and sample transitions or rollout data used during training."""
+
+from __future__ import annotations
+
 import torch
 from torch import Tensor
 

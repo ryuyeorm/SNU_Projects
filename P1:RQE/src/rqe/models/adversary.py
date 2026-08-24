@@ -18,10 +18,12 @@ class Adversary(nn.Module):
             nn.Linear(hidden_dim, action_dim)
         )
 
+    def forward_logits(self, observations: Tensor) -> Tensor:
+        return self.network(observations)
+
     def forward(self, observations: Tensor) -> Tensor:
-        return torch.softmax(self.network(observations), dim = -1) # transform the output(logits) into probability(normalizing them)
+        return torch.softmax(self.forward_logits(observations), dim=-1) # transform the output(logits) into probability(normalizing them)
 
     # note : the output of this network has to be probability, which is p_i from the paper
     # it needs to be compared to the original true opponent policy pi_-i
-
 

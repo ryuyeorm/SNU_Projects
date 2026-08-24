@@ -1,5 +1,7 @@
 """The two-agent gridworld cooperation game from the RQE paper."""
 
+from __future__ import annotations
+
 import random
 from collections.abc import Sequence
 from typing import Any
