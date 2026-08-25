@@ -26,6 +26,7 @@ def train_gridworld(
     seed: int = 0,
     updates_per_step: int = 1,
     log_interval: int = 0,
+    log_prefix: str = "",
 ) -> GridworldTrainingResult:
     """Train one two-agent policy pair on the paper's gridworld."""
     if episodes <= 0:
@@ -79,15 +80,21 @@ def train_gridworld(
                 defection_steps[start : episode + 1].mean(dim=0)
                 / environment.horizon
             )
+            recent_wandering = (
+                1.0 - recent_cooperation - recent_defection
+            )
             print(
-                f"episode {episode + 1}/{episodes} "
+                f"{log_prefix}episode {episode + 1}/{episodes} "
                 f"MA100 social welfare={recent_returns.sum().item():.3f} "
                 f"returns=({recent_returns[0].item():.3f},"
                 f" {recent_returns[1].item():.3f}) "
                 f"cooperation=({recent_cooperation[0].item():.1%},"
                 f" {recent_cooperation[1].item():.1%}) "
                 f"defection=({recent_defection[0].item():.1%},"
-                f" {recent_defection[1].item():.1%})"
+                f" {recent_defection[1].item():.1%}) "
+                f"wandering=({recent_wandering[0].item():.1%},"
+                f" {recent_wandering[1].item():.1%})",
+                flush=True,
             )
 
     return GridworldTrainingResult(
