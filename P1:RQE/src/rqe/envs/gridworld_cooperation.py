@@ -91,6 +91,14 @@ class GridworldCooperation:
             "requested_actions": tuple(requested_actions),
             "applied_actions": tuple(applied_actions),
             "social_welfare": rewards.sum().item(),
+            "cooperation": tuple(
+                position == self.cooperation_zone
+                for position in self._positions
+            ),
+            "defection": tuple(
+                self._positions[agent] == self._defection_zone(agent)
+                for agent in range(2)
+            ),
         }
         return self._observation(), rewards, done, info
 

@@ -40,6 +40,11 @@ def main() -> None:
         "risk_averse": [],
         "risk_neutral": [],
     }
+    diagnostics: dict[str, dict[str, list[Tensor]]] = {
+        "agent_returns": {"risk_averse": [], "risk_neutral": []},
+        "cooperation_rates": {"risk_averse": [], "risk_neutral": []},
+        "defection_rates": {"risk_averse": [], "risk_neutral": []},
+    }
     output_directory = Path("results/gridworld")
     output_directory.mkdir(parents=True, exist_ok=True)
     device = None if args.device == "auto" else args.device
@@ -81,9 +86,27 @@ def main() -> None:
                 log_interval=args.log_interval,
             )
             curves[label].append(result.social_welfare)
+            diagnostics["agent_returns"][label].append(result.agent_returns)
+            diagnostics["cooperation_rates"][label].append(
+                result.cooperation_rates
+            )
+            diagnostics["defection_rates"][label].append(
+                result.defection_rates
+            )
             torch.save(
                 {name: torch.stack(values) for name, values in curves.items() if values},
                 output_directory / "fig4_training_curves.pt",
+            )
+            torch.save(
+                {
+                    metric: {
+                        name: torch.stack(values)
+                        for name, values in by_algorithm.items()
+                        if values
+                    }
+                    for metric, by_algorithm in diagnostics.items()
+                },
+                output_directory / "fig4_diagnostics.pt",
             )
 
     stacked = {name: torch.stack(values) for name, values in curves.items()}

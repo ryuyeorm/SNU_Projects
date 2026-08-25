@@ -15,6 +15,8 @@ class GridworldTrainingResult:
 
     agent_returns: Tensor
     social_welfare: Tensor
+    cooperation_rates: Tensor
+    defection_rates: Tensor
     updates: int
 
 
@@ -34,6 +36,8 @@ def train_gridworld(
     torch.manual_seed(seed)
     environment = GridworldCooperation(horizon=50, seed=seed)
     episode_returns = torch.zeros(episodes, 2)
+    cooperation_steps = torch.zeros(episodes, 2)
+    defection_steps = torch.zeros(episodes, 2)
     updates = 0
 
     for episode in range(episodes):
@@ -41,7 +45,7 @@ def train_gridworld(
         done = False
         while not done:
             actions = agent.act(observation)
-            next_observation, rewards, done, _ = environment.step(actions)
+            next_observation, rewards, done, info = environment.step(actions)
             # The 50-step horizon truncates the infinite-horizon process.
             agent.observe(
                 observation,
@@ -51,6 +55,12 @@ def train_gridworld(
                 torch.tensor(False),
             )
             episode_returns[episode] += rewards
+            cooperation_steps[episode] += torch.tensor(
+                info["cooperation"], dtype=torch.float32
+            )
+            defection_steps[episode] += torch.tensor(
+                info["defection"], dtype=torch.float32
+            )
             observation = next_observation
 
             if len(agent.buffer) >= agent.batch_size:
@@ -60,15 +70,31 @@ def train_gridworld(
 
         if log_interval and (episode + 1) % log_interval == 0:
             start = max(0, episode + 1 - 100)
-            recent = episode_returns[start : episode + 1].sum(dim=-1).mean()
+            recent_returns = episode_returns[start : episode + 1].mean(dim=0)
+            recent_cooperation = (
+                cooperation_steps[start : episode + 1].mean(dim=0)
+                / environment.horizon
+            )
+            recent_defection = (
+                defection_steps[start : episode + 1].mean(dim=0)
+                / environment.horizon
+            )
             print(
                 f"episode {episode + 1}/{episodes} "
-                f"MA100 social welfare={recent.item():.3f}"
+                f"MA100 social welfare={recent_returns.sum().item():.3f} "
+                f"returns=({recent_returns[0].item():.3f},"
+                f" {recent_returns[1].item():.3f}) "
+                f"cooperation=({recent_cooperation[0].item():.1%},"
+                f" {recent_cooperation[1].item():.1%}) "
+                f"defection=({recent_defection[0].item():.1%},"
+                f" {recent_defection[1].item():.1%})"
             )
 
     return GridworldTrainingResult(
         agent_returns=episode_returns,
         social_welfare=episode_returns.sum(dim=-1),
+        cooperation_rates=cooperation_steps / environment.horizon,
+        defection_rates=defection_steps / environment.horizon,
         updates=updates,
     )
 
@@ -83,16 +109,26 @@ def evaluate_gridworld(
     """Evaluate a trained policy without adding data or updating networks."""
     environment = GridworldCooperation(horizon=50, seed=seed)
     episode_returns = torch.zeros(episodes, 2)
+    cooperation_steps = torch.zeros(episodes, 2)
+    defection_steps = torch.zeros(episodes, 2)
     for episode in range(episodes):
         observation = environment.reset()
         done = False
         while not done:
             actions = agent.act(observation, deterministic=deterministic)
-            observation, rewards, done, _ = environment.step(actions)
+            observation, rewards, done, info = environment.step(actions)
             episode_returns[episode] += rewards
+            cooperation_steps[episode] += torch.tensor(
+                info["cooperation"], dtype=torch.float32
+            )
+            defection_steps[episode] += torch.tensor(
+                info["defection"], dtype=torch.float32
+            )
     return GridworldTrainingResult(
         agent_returns=episode_returns,
         social_welfare=episode_returns.sum(dim=-1),
+        cooperation_rates=cooperation_steps / environment.horizon,
+        defection_rates=defection_steps / environment.horizon,
         updates=0,
     )
 

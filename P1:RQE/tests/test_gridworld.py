@@ -94,7 +94,9 @@ def test_training_bootstraps_at_time_limit():
             self.buffer.append(done)
 
     agent = RecordingAgent()
-    train_gridworld(agent, episodes=1)
+    result = train_gridworld(agent, episodes=1)
 
     assert len(agent.buffer) == 50
     assert not torch.stack(agent.buffer).any()
+    torch.testing.assert_close(result.cooperation_rates, torch.zeros(1, 2))
+    torch.testing.assert_close(result.defection_rates, torch.zeros(1, 2))
