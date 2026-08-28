@@ -1,0 +1,74 @@
+{
+  "config": {
+    "agent": {
+      "actor_lr": 0.0003,
+      "critic_lr": 0.001,
+      "gae_lambda": 0.95,
+      "gamma": 0.99,
+      "hidden_sizes": [
+        64,
+        64
+      ],
+      "max_grad_norm": 1.0
+    },
+    "environment": {
+      "episode_horizon": 100,
+      "goal": [
+        1.0,
+        0.0
+      ],
+      "start_position_std": 0.05,
+      "state_bound": 2.0,
+      "step_scale": 0.1,
+      "success_radius": 0.1,
+      "transition_noise_std": 0.0
+    },
+    "experiment": {
+      "deterministic_torch": true,
+      "name": "heterogeneous_gradient_transfer",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "paths": {
+      "checkpoints": "checkpoints",
+      "plots": "plots",
+      "results": "results"
+    },
+    "training": {
+      "alignment_batch_steps": 256,
+      "eval_episodes": 20,
+      "eval_interval": 1000,
+      "num_alignment_batches": 20,
+      "probe_budgets": [
+        50,
+        100,
+        250,
+        500,
+        1000
+      ],
+      "probe_steps": 500,
+      "rollout_steps": 256,
+      "source_steps": 100000,
+      "target_steps": 20000,
+      "transfer_lambda": 0.1,
+      "zero_shot_eval_episodes": 20
+    }
+  },
+  "git_commit": "2fc8170e6c2b6063955741eaa400275bf584b68a",
+  "numpy": "2.2.6",
+  "python": "3.10.12",
+  "seed": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "timestamp_utc": "2026-08-27T12:22:13.876360+00:00",
+  "torch": "2.13.0+cu130"
+}

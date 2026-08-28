@@ -1,0 +1,60 @@
+{
+  "n": 40,
+  "pearson_r": 0.6089336734958806,
+  "pearson_p_two_sided": 3.053128937504882e-05,
+  "pearson_95pct_bootstrap_ci": [
+    0.364454902608021,
+    0.8026771655251254
+  ],
+  "spearman_rho": 0.6165103189493434,
+  "spearman_p_two_sided": 2.276708630664164e-05,
+  "spearman_95pct_bootstrap_ci": [
+    0.35404324335517084,
+    0.8032514251868654
+  ],
+  "per_seed": {
+    "0": {
+      "n": 8,
+      "pearson_r": 0.9661763008304256,
+      "pearson_p_two_sided": 9.430192223634693e-05,
+      "spearman_rho": 0.9285714285714287,
+      "spearman_p_two_sided": 0.0008629681828999769
+    },
+    "1": {
+      "n": 8,
+      "pearson_r": 0.9249823243145257,
+      "pearson_p_two_sided": 0.00099694219181719,
+      "spearman_rho": 0.880952380952381,
+      "spearman_p_two_sided": 0.0038503204637324014
+    },
+    "2": {
+      "n": 8,
+      "pearson_r": 0.9671924011855705,
+      "pearson_p_two_sided": 8.61222642042788e-05,
+      "spearman_rho": 0.9285714285714287,
+      "spearman_p_two_sided": 0.0008629681828999769
+    },
+    "3": {
+      "n": 8,
+      "pearson_r": 0.9799644598916646,
+      "pearson_p_two_sided": 1.9805882504937336e-05,
+      "spearman_rho": 1.0,
+      "spearman_p_two_sided": 0.0
+    },
+    "4": {
+      "n": 8,
+      "pearson_r": 0.9655961330599616,
+      "pearson_p_two_sided": 9.919453830677086e-05,
+      "spearman_rho": 0.9523809523809524,
+      "spearman_p_two_sided": 0.00026040002438725105
+    }
+  },
+  "descriptive_scratch_time_mean_pearson_r": 0.7480001922327306,
+  "descriptive_scratch_time_mean_pearson_p_two_sided": 2.8973391999937584e-08,
+  "descriptive_scratch_time_mean_spearman_rho": 0.7645403377110696,
+  "descriptive_scratch_time_mean_spearman_p_two_sided": 9.349488390505747e-09,
+  "descriptive_transfer_time_mean_pearson_r": 0.7714072524805886,
+  "descriptive_transfer_time_mean_pearson_p_two_sided": 5.68894738715825e-09,
+  "descriptive_transfer_time_mean_spearman_rho": 0.7844277673545967,
+  "descriptive_transfer_time_mean_spearman_p_two_sided": 2.1126579073787982e-09
+}

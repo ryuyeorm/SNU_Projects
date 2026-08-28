@@ -1,0 +1,35 @@
+experiment:
+  name: heterogeneous_gradient_transfer
+  seeds: [0, 1, 2, 3, 4]
+  deterministic_torch: true
+environment:
+  goal: [1.0, 0.0]
+  step_scale: 0.1
+  episode_horizon: 100
+  success_radius: 0.1
+  transition_noise_std: 0.0
+  start_position_std: 0.05
+  state_bound: 2.0
+agent:
+  gamma: 0.99
+  gae_lambda: 0.95
+  actor_lr: 0.0003
+  critic_lr: 0.001
+  hidden_sizes: [64, 64]
+  max_grad_norm: 1.0
+training:
+  rollout_steps: 256
+  source_steps: 100000
+  probe_steps: 500
+  target_steps: 20000
+  eval_interval: 1000
+  eval_episodes: 20
+  zero_shot_eval_episodes: 20
+  num_alignment_batches: 20
+  alignment_batch_steps: 256
+  transfer_lambda: 0.1
+  probe_budgets: [50, 100, 250, 500, 1000]
+paths:
+  checkpoints: checkpoints
+  results: results
+  plots: plots

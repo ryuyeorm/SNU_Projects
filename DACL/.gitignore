@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.deps/
+checkpoints/*.pt
+results/*.csv
+plots/*.png
+plots/*.json

@@ -1,0 +1,32 @@
+algorithm: actor_critic
+device: cpu
+environment: {step_scale: 0.1, transition_noise: 0.0, start_radius: 0.0, goal_radius: 0.1, success_bonus: 0.0, horizon: 20}
+sac: {gamma: 0.99, tau: 0.005, learning_rate: 0.0003, init_alpha: 0.2, hidden_sizes: [32, 32]}
+actor_critic: {gamma: 0.99, learning_rate: 0.0003, entropy_coef: 0.001, value_coef: 0.5, max_grad_norm: 1.0, rollout_steps: 16, gae_lambda: 0.95, hidden_sizes: [32, 32]}
+experiment:
+  source_angle: 0.0
+  source_seed: 2026
+  target_angles: [0.0, 90.0]
+  seeds: [0]
+  source_train_steps: 300
+  probe_steps: 100
+  probe_batch_size: 32
+  diagnostic_rollout_steps: 64
+  num_alignment_batches: 2
+  diagnostic_action_samples: 1
+  periodic_alignment: true
+  periodic_alignment_interval: 50
+  periodic_alignment_batch_size: 32
+  periodic_alignment_batches: 2
+  transfer_steps: 100
+  transfer_measure: kl
+  transfer_lambda: 0.1
+  batch_size: 32
+  learning_starts: 32
+  replay_capacity: 2000
+  eval_interval: 50
+  eval_episodes: 2
+  success_rate_threshold: 0.8
+paths:
+  checkpoints: /tmp/dacl_rotated_dynamics_smoke/checkpoints
+  results: /tmp/dacl_rotated_dynamics_smoke/results.csv

@@ -1,0 +1,60 @@
+{
+  "n": 40,
+  "pearson_r": 0.7097663454407624,
+  "pearson_p_two_sided": 2.923808181268267e-07,
+  "pearson_95pct_bootstrap_ci": [
+    0.511394838647331,
+    0.8525479470710857
+  ],
+  "spearman_rho": 0.7183864915572234,
+  "spearman_p_two_sided": 1.7942211932706982e-07,
+  "spearman_95pct_bootstrap_ci": [
+    0.48481036392998567,
+    0.8692054166636419
+  ],
+  "per_seed": {
+    "0": {
+      "n": 8,
+      "pearson_r": 0.9823302204369768,
+      "pearson_p_two_sided": 1.3610062605024145e-05,
+      "spearman_rho": 0.9761904761904763,
+      "spearman_p_two_sided": 3.3143960262001043e-05
+    },
+    "1": {
+      "n": 8,
+      "pearson_r": 0.85536053556701,
+      "pearson_p_two_sided": 0.0067679588636948,
+      "spearman_rho": 0.8333333333333335,
+      "spearman_p_two_sided": 0.01017554012345675
+    },
+    "2": {
+      "n": 8,
+      "pearson_r": 0.972150962126676,
+      "pearson_p_two_sided": 5.287557579782178e-05,
+      "spearman_rho": 0.9523809523809524,
+      "spearman_p_two_sided": 0.00026040002438725105
+    },
+    "3": {
+      "n": 8,
+      "pearson_r": 0.9841687428309382,
+      "pearson_p_two_sided": 9.802013912685711e-06,
+      "spearman_rho": 0.9761904761904763,
+      "spearman_p_two_sided": 3.3143960262001043e-05
+    },
+    "4": {
+      "n": 8,
+      "pearson_r": 0.9155920763970811,
+      "pearson_p_two_sided": 0.0014098815998629958,
+      "spearman_rho": 0.8571428571428572,
+      "spearman_p_two_sided": 0.006530017254715292
+    }
+  },
+  "descriptive_scratch_time_mean_pearson_r": 0.8078890731993955,
+  "descriptive_scratch_time_mean_pearson_p_two_sided": 2.951117226014183e-10,
+  "descriptive_scratch_time_mean_spearman_rho": 0.8542213883677299,
+  "descriptive_scratch_time_mean_spearman_p_two_sided": 2.3929624701415447e-12,
+  "descriptive_transfer_time_mean_pearson_r": 0.8221102296925711,
+  "descriptive_transfer_time_mean_pearson_p_two_sided": 7.815935429294161e-11,
+  "descriptive_transfer_time_mean_spearman_rho": 0.8716697936210133,
+  "descriptive_transfer_time_mean_spearman_p_two_sided": 2.489277456829834e-13
+}

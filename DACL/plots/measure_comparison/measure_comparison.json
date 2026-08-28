@@ -1,0 +1,44 @@
+{
+  "kl": {
+    "n": 40,
+    "pearson_r": 0.7097663454407624,
+    "pearson_p": 2.923808181268267e-07,
+    "spearman_rho": 0.7183864915572234,
+    "spearman_p": 1.7942211932706982e-07
+  },
+  "wasserstein": {
+    "n": 40,
+    "pearson_r": 0.8271160766080281,
+    "pearson_p": 4.7603168561255716e-11,
+    "spearman_rho": 0.827579737335835,
+    "spearman_p": 4.543005120429626e-11
+  },
+  "mean_mse": {
+    "n": 40,
+    "pearson_r": 0.8710546613193789,
+    "pearson_p": 2.710855625251459e-13,
+    "spearman_rho": 0.8542213883677299,
+    "spearman_p": 2.3929624701415447e-12
+  },
+  "matched_records": 40,
+  "paired_transfer_comparisons": {
+    "wasserstein_minus_kl": {
+      "mean_difference": -12300.445594161283,
+      "paired_t": -4.576177698382116,
+      "paired_t_p": 4.721943497528932e-05,
+      "right_better_count": 12
+    },
+    "mean_mse_minus_kl": {
+      "mean_difference": -11965.673631124082,
+      "paired_t": -4.4042120326009355,
+      "paired_t_p": 8.032184459741274e-05,
+      "right_better_count": 13
+    },
+    "mean_mse_minus_wasserstein": {
+      "mean_difference": 334.771963037201,
+      "paired_t": 1.312993506412769,
+      "paired_t_p": 0.1968587179808697,
+      "right_better_count": 21
+    }
+  }
+}

@@ -1,0 +1,62 @@
+# Quick eight-angle rerun using one target seed. This configuration reduces the KL
+# treatment strength so its gradient is comparable to, rather than overwhelming, SAC.
+algorithm: actor_critic
+device: cpu
+
+environment:
+  step_scale: 0.1
+  transition_noise: 0.0
+  start_radius: 0.0
+  goal_radius: 0.1
+  success_bonus: 0.0
+  horizon: 50
+
+sac:
+  gamma: 0.99
+  tau: 0.005
+  learning_rate: 0.0003
+  init_alpha: 0.2
+  hidden_sizes: [128, 128]
+
+actor_critic:
+  gamma: 0.99
+  learning_rate: 0.0001
+  entropy_coef: 0.005
+  value_coef: 0.5
+  max_grad_norm: 1.0
+  rollout_steps: 256
+  gae_lambda: 0.95
+  hidden_sizes: [128, 128]
+
+experiment:
+  source_angle: 0.0
+  source_seed: 2026
+  target_angles: [0.0, 45.0, 90.0, 135.0, 180.0, 225.0, 270.0, 315.0]
+  seeds: [0]
+  source_train_steps: 30000
+  probe_steps: 1000
+  probe_batch_size: 64
+  diagnostic_rollout_steps: 512
+  num_alignment_batches: 50
+  # Actor–critic uses the actions actually collected in the on-policy probe rollout.
+  diagnostic_action_samples: 1
+  # Track both branches after training starts. These are descriptive diagnostics;
+  # mean_cosine_alignment at the branch point remains the primary predictor.
+  periodic_alignment: true
+  periodic_alignment_interval: 1000
+  periodic_alignment_batch_size: 64
+  periodic_alignment_batches: 10
+  transfer_steps: 10000
+  transfer_measure: kl
+  transfer_lambda: 0.1
+  batch_size: 256
+  learning_starts: 500
+  replay_capacity: 100000
+  eval_interval: 500
+  eval_episodes: 10
+  success_rate_threshold: 0.8
+
+paths:
+  # Reuse the previously trained source actor; only target results are separated.
+  checkpoints: checkpoints
+  results: results/one_seed_rotated_dynamics.csv

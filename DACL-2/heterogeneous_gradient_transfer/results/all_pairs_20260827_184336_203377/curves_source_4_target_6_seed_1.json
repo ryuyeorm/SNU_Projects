@@ -1,0 +1,258 @@
+{
+  "scratch": [
+    {
+      "mean_return": -144.35874350368977,
+      "std_return": 4.8760817773201,
+      "step": 0,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -101.92134621441365,
+      "std_return": 5.2319213452097975,
+      "step": 1000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -58.894510788843036,
+      "std_return": 5.950672489794264,
+      "step": 2000,
+      "success_rate": 0.15
+    },
+    {
+      "mean_return": -49.14232463687658,
+      "std_return": 5.077207418237994,
+      "step": 3000,
+      "success_rate": 0.05
+    },
+    {
+      "mean_return": -41.65105547495186,
+      "std_return": 20.514170986444515,
+      "step": 4000,
+      "success_rate": 0.5
+    },
+    {
+      "mean_return": -25.17141707204282,
+      "std_return": 20.709539419135787,
+      "step": 5000,
+      "success_rate": 0.85
+    },
+    {
+      "mean_return": -16.624059752747417,
+      "std_return": 14.555566398623135,
+      "step": 6000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -15.154764303192497,
+      "std_return": 15.552969790020821,
+      "step": 7000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -14.309006970562042,
+      "std_return": 16.188561982651088,
+      "step": 8000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -13.57556669227779,
+      "std_return": 16.787967331095164,
+      "step": 9000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -13.198960425518454,
+      "std_return": 17.455676094041554,
+      "step": 10000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -12.825790141522884,
+      "std_return": 18.455745985180126,
+      "step": 11000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -12.522353670373558,
+      "std_return": 18.54916736372821,
+      "step": 12000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -12.385568971931935,
+      "std_return": 18.137557590059444,
+      "step": 13000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -12.291987066343427,
+      "std_return": 17.32220641816651,
+      "step": 14000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -12.245538488216699,
+      "std_return": 16.69307042028906,
+      "step": 15000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -19.514534195885062,
+      "std_return": 26.293952811484548,
+      "step": 16000,
+      "success_rate": 0.85
+    },
+    {
+      "mean_return": -30.412321319803596,
+      "std_return": 33.227385641940074,
+      "step": 17000,
+      "success_rate": 0.7
+    },
+    {
+      "mean_return": -19.351361543685197,
+      "std_return": 25.88986252398853,
+      "step": 18000,
+      "success_rate": 0.85
+    },
+    {
+      "mean_return": -12.119356999360026,
+      "std_return": 15.799709442973647,
+      "step": 19000,
+      "success_rate": 0.95
+    },
+    {
+      "mean_return": -12.179113970324398,
+      "std_return": 15.697727806784911,
+      "step": 20000,
+      "success_rate": 0.95
+    }
+  ],
+  "transfer": [
+    {
+      "mean_return": -144.35874350368977,
+      "std_return": 4.8760817773201,
+      "step": 0,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -154.3332728087902,
+      "std_return": 4.679642111461696,
+      "step": 1000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -185.448317861557,
+      "std_return": 4.673021472012851,
+      "step": 2000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -222.81821429133416,
+      "std_return": 4.495561419834169,
+      "step": 3000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -246.75701718330384,
+      "std_return": 3.4243073134343955,
+      "step": 4000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -258.9943065047264,
+      "std_return": 2.8406918130877776,
+      "step": 5000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -266.451328805089,
+      "std_return": 2.481740155730054,
+      "step": 6000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -270.5384301751852,
+      "std_return": 2.217574453191147,
+      "step": 7000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -273.25197672843933,
+      "std_return": 2.0201739785081774,
+      "step": 8000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -275.5628856807947,
+      "std_return": 1.8696286071973265,
+      "step": 9000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -278.28416452109815,
+      "std_return": 1.7645570789496803,
+      "step": 10000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -280.38461041748525,
+      "std_return": 1.6781171575711948,
+      "step": 11000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -281.04444768726825,
+      "std_return": 1.5814948526783943,
+      "step": 12000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -281.50414011776445,
+      "std_return": 1.4970977171119455,
+      "step": 13000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -283.2190236181021,
+      "std_return": 1.4515887987158678,
+      "step": 14000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -284.9284549742937,
+      "std_return": 1.4156941370904335,
+      "step": 15000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -287.69637451469896,
+      "std_return": 1.412991877613634,
+      "step": 16000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -290.2159351199865,
+      "std_return": 1.4151257366233039,
+      "step": 17000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -289.55338115394113,
+      "std_return": 1.3571097528435658,
+      "step": 18000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -286.0454621165991,
+      "std_return": 1.2452662539527686,
+      "step": 19000,
+      "success_rate": 0.0
+    },
+    {
+      "mean_return": -283.8193809390068,
+      "std_return": 1.1672160391850952,
+      "step": 20000,
+      "success_rate": 0.0
+    }
+  ]
+}
